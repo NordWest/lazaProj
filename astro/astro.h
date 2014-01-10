@@ -1,21 +1,15 @@
 #include <QtCore>
 #include "math.h"
 
-#ifndef COMF_H
-//#include "./../libs/comfunc.h"
-#endif
-//#include "fitsio.h"
-
 #ifndef ASTRO_H
 
-#define PI 3.141592653589793238462
+#define PI atan(1)*4
 #define SECINRAD 206264.806
 #define MAS_IN_GRAD 3600000.0
-//#define PI 3.141592653589
-//#define PI atan(1)*4
 #define AU_CONST 1
 #define AUKM 1.49597870691000015e+8
 #define AUSM 1.49597870691000015e+13
+
 typedef struct __DATEOBS__
 {
 	int year;
@@ -75,19 +69,7 @@ QString getRaDecMag(QString str);
 
 void mjdDateCode(QString *dateCode, double mJD);
 void mjdDateCode_file(QString *dateCode, double mJD);
-/*mas
-double* getTangToRaDe(double ksi, double eta, double ra_c, double de_c);
-void getTangToRaDe1(double *rd0, double *rd1, double ksi, double eta, double ra_c, double de_c);
-        void getTangToRaDe(double ksi, double eta, double ra_c, double de_c, double *const ep);
-double* getRaDeToTang(double ra, double de, double ra_c, double de_c);
-void getRaDeToTang1(double *ksi, double *eta, double ra, double de, double ra_c, double de_c);
-        void getRaDeToTang(double ra, double de, double ra_c, double de_c, double *const tang);
-double* getCposFromWCS(double x, double y, double *WCSD);
-void getCposFromWCS1(double *ra, double *de, double x, double y, double *WCSD);
-double* getPixPosFromWCS(double ra, double de, double *WCSD);
-void getPixPosFromWCS(double *x, double *y, double ra, double de, double *WCSD);
-	void getPixPosFromWCS(double ra, double de, double *WCSD, double *const pixp);
-*/
+
 //Degree
 void getDegToTang(double *ksi, double *eta, double ra, double de, double ra_c, double de_c);
 void getTangToDeg(double *rd0, double *rd1, double ksi, double eta, double ra_c, double de_c);
@@ -106,19 +88,7 @@ int damas_to_deg(double *deDeg, QString de, QString spl_symb);
 int isVes(int year);
 double dinm(int mounth, int isves);
 
-
-/*
- int make_fits_header(fitsfile *fptr, char *fheadfn);
- void make_date_obs(char *str_date_obs, char *str_time_obs, char *str_date_end, char *str_time_end);
- void make_good_RADEC(char *str_ra, int type);
- int make_good_fits_header(char *fheader_name);
- */
- 
-
-
 int UCAC2dataToFile(double ra_c, double de_c, double rho_x, double rho_y, double mag1, double mag2, int shape, QString path, QString savePath, QString ufname, QString sepS, int pForm);
-
-
 
 double delta_ra(double a1, double a2);
 void rot2D(double *r, double ang);
@@ -132,23 +102,6 @@ double rad2grad(double rad);
 
 double rad2mas(double rad);
 double mas2rad(double mas);
-/*
-#ifndef COMF_H
-int fakt(int n);
-double grad2rad(double grad);
-double rad2grad(double rad);
-int streqv(char *str1, char *str2);
-int slovo_stopsim(char *str, char *slo, char* stopsim, int posb, int *pose, int nmax);
-int dat2JD(double *Jday, int year, int mth, double day);
-int dat2YMD(double Jday, int *year, int *mth, double *day);
-void day2HMS(double day, int *iday, int *hour, int *min, double *sec);
-void HMS2day(double *day, int hour, int min, double sec);
-int isVes(int year);
-double dinm(int mounth, int isves);
-void dat2YMD_str(double JD, char *str);
 
-#endif
-*/
-//double phaseCorr(doubl
 #define ASTRO_H
 #endif
