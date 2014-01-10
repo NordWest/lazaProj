@@ -103,5 +103,21 @@ double rad2grad(double rad);
 double rad2mas(double rad);
 double mas2rad(double mas);
 
+
+/////////////////////////////////////////time_a
+
+double UTC2TDT(double jdUTC);
+double TDB2TDT(double jdTDB);
+double UTC2TDB(double jdUTC);
+double TAImUTC(double mjd);
+double TDT2UTC(double jdTDT);
+double TDB2UTC(double jdTDB);
+double TDB2TT(double jdTDB);
+double TDT2TDB(double jdTDT);
+
+double dUT1();	//=UT1-UTC
+//////////////////////////////////////////////////////////////
+
+
 #define ASTRO_H
 #endif
