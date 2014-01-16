@@ -66,80 +66,30 @@ double det_planet_H(int pl_num)
 dele::dele()
 {
     setlocale(LC_NUMERIC, "C");
-//	this->fname_h = new char[FNLEN];
-//	strcpy(this->fname_h, "");
-
-        this->fileName = new char[FNLEN];
-        strcpy(this->fileName, "");
-/*
-	g1010 = new group1010;
-	g1030 = new group1030;
-	g1040 = new group1040;
-	g1041 = new group1040;
-	g1050 = new group1050;
-	g1070 = new group1070;
-*/
-//	this->init_header(this->fname_h);
+    this->fileName = new char[FNLEN];
+    strcpy(this->fileName, "");
 }
 
 dele::dele(const char *fname_bin)
 {
     dele();
-        //this->fname_h = new char[FNLEN];
-        //strncpy(this->fname_h, fname, FNLEN);
 
-        fileName = new char[FNLEN];
-        strncpy(fileName, fname_bin, FNLEN);
-        //strcpy(this->fname_bin, "ascp2000.405\0");
-/*
-	g1010 = new group1010;
-	g1030 = new group1030;
-	g1040 = new group1040;
-	g1041 = new group1040;
-	g1050 = new group1050;
-	g1070 = new group1070;
-*/
-        init(fileName);
+    fileName = new char[FNLEN];
+    strncpy(fileName, fname_bin, FNLEN);
+
+    init(fileName);
 }
-/*
-dele::dele(const char *fname_h, const char *fname_bin)
-{
-	this->fname_h = new char[FNLEN];
-	strcpy(this->fname_h, fname_h);
-
-	this->fname_bin = new char[FNLEN];
-	strcpy(this->fname_bin, fname_bin);
-
-	g1010 = new group1010;
-	g1030 = new group1030;
-	g1040 = new group1040;
-	g1041 = new group1040;
-	g1050 = new group1050;
-	g1070 = new group1070;
-
-	this->init_header(this->fname_h);
-        this->init_jpl_bin(this->fname_bin);
-}
-*/
 
 dele::~dele()
 {
-/*        delete(g1010);
-	delete(g1030);
-	delete(g1040);
-	delete(g1041);
-	delete(g1050);
-        delete(g1070);
-        */
+
 }
 
 int dele::init(const char *jpl_name)
 {
         strcpy(this->fileName, jpl_name);
-        //this->g1070 = new group1070;
-        //strcpy(this->g1070->fname, this->fname_bin);
+
         return(Initialize_Ephemeris(fileName));
-        //fclose(Ephemeris_File);//->close();
 
         return 0;
 }
@@ -202,7 +152,6 @@ int dele::detRtt(double *x, double *y, double *z, double Time, int nplanet, int 
 	for(i=0; i<11; i++)
 	{
         xk = new double[7];
-
 		detR(&xk[0], &xk[1], &xk[2], Time, i, 0, centr, sk);
 		detR(&xk[3], &xk[4], &xk[5], Time, i, 1, centr, sk);
                 //this->g1041->getElem(rc, 8+i);
@@ -210,6 +159,7 @@ int dele::detRtt(double *x, double *y, double *z, double Time, int nplanet, int 
         cs << xk;
 	}
 
+    xk = new double[7];
     xk1 = new double[7];
 	detR(&xk[0], &xk[1], &xk[2], Time, nplanet, 0, centr, sk);
 	detR(&xk[3], &xk[4], &xk[5], Time, nplanet, 1, centr, sk);
@@ -220,7 +170,6 @@ int dele::detRtt(double *x, double *y, double *z, double Time, int nplanet, int 
         xk[6] = H2.data.constValue[8+npl];//rc->value;
     cs << xk;
 
-    xk1 = new double[7];
     xk = cs[9];
     xk1 = cs[11];
 
@@ -234,12 +183,10 @@ int dele::detRtt(double *x, double *y, double *z, double Time, int nplanet, int 
 
 	double A[3];
 	double c;
-
     c = H2.data.constValue[6];//rc->value;
 
 	double vmod1 = sqrt(xk1[3]*xk1[3] + xk1[4]*xk1[4] + xk1[5]*xk1[5]);
 	
-
 	for(i=0; i<3; i++) A[i] = xk[6]*((4.0*xk[6]/rmod1 - pow(vmod1, 2.0))*xk1[i+3] + 4.0*(xk1[i]*xk1[i+3])*xk1[i+3])/(c*c*pow(rmod1, 3.0));
 
 	*x+=A[0];
@@ -253,9 +200,7 @@ int dele::detRtt(double *x, double *y, double *z, double Time, int nplanet, int 
 
 	for(i=0; i<3; i++)
 	{
-		
-		A[i] = 0.0;
-
+        A[i] = 0.0;
 
 		for(k=0; k<9; k++)
 		{
@@ -276,11 +221,10 @@ int dele::detRtt(double *x, double *y, double *z, double Time, int nplanet, int 
 
 int dele::headParam(QString name, double &res)
 {
-    int i, sz;
+    int i;
     QString param;
     char *oneParam = new char[6];
 
-    //return Find_Value(name, R1.constName, H2.data.constValue);
     for(i=0; i<400; i++)
     {
         strncpy(oneParam, &R1.constName[i][0], 6);
@@ -462,55 +406,34 @@ int dele::detR(double *x, double *y, double *z, double Time, int nplanet, int pr
     double *Position = new double[3];
 
     //Initialize_Ephemeris(fname_bin);
-Interpolate_State( Time , nplanet , &State );
+    Interpolate_State( Time , nplanet , &State );
 
 
     if(proizv)
     {
-        //Interpolate_State( Time , nplanet , &State );
         *x = State.Velocity[0];
         *y = State.Velocity[1];
         *z = State.Velocity[2];
-        /*if(nplanet==MOON_NUM)
-        {
-            Interpolate_State( Time , EARTH_NUM , &State );
-            *x += State.Velocity[0];
-            *y += State.Velocity[1];
-            *z += State.Velocity[2];
-        }*/
+
         *x = *x/H1.data.AU*86400.0;
         *y = *y/H1.data.AU*86400.0;
         *z = *z/H1.data.AU*86400.0;
     }
     else
     {
-        //Interpolate_Position( Time , nplanet , Position );
         *x = State.Position[0];
         *y = State.Position[1];
         *z = State.Position[2];
-        /*if(nplanet==MOON_NUM)
-        {
-            Interpolate_State( Time , EARTH_NUM , &State );
-            *x += State.Position[0];
-            *y += State.Position[1];
-            *z += State.Position[2];
-        }*/
+
         *x = *x/H1.data.AU;
         *y = *y/H1.data.AU;
         *z = *z/H1.data.AU;
     }
- /*
-    *x /= AUKM;
-    *y /= AUKM;
-    *z /= AUKM;*/
 
     if(npl)
     {
         xt = yt = zt = 0.0;
 
-        //this->g1041->getElemByName(&unitRec, "EMRAT");
-        //unitRec.value;
-        //Em = 81.300559999999983223729606289923;
         Interpolate_State( Time , MOON_NUM , &State );
         if(proizv)
         {
@@ -531,56 +454,28 @@ Interpolate_State( Time , nplanet , &State );
             zt = zt/H1.data.AU;
         }
 
-        //this->detR(&xt, &yt, &zt, Time, MOON_NUM, proizv, 0, 0);
-        /*if(npl!=2)
-        {*/
-            Em = H1.data.EMRAT;
-            //Em = Em+1;
+        Em = H1.data.EMRAT;
 
-        //qDebug() << QString("EM: %1\n").arg(Em);
+        if(npl==1)
+        {
+            *x = *x - (1.0/(1.0+Em))*xt;
+            *y = *y - (1.0/(1.0+Em))*yt;
+            *z = *z - (1.0/(1.0+Em))*zt;
 
-            if(npl==1)
-            {
-                *x = *x - (1.0/(1.0+Em))*xt;
-                *y = *y - (1.0/(1.0+Em))*yt;
-                *z = *z - (1.0/(1.0+Em))*zt;
+        }
 
-            }
+        if(npl==2)
+        {
+            *x = *x + (Em/(1.0+Em))*xt;
+            *y = *y + (Em/(1.0+Em))*yt;
+            *z = *z + (Em/(1.0+Em))*zt;
+        }
 
-            if(npl==2)
-            {
-                *x = *x + (Em/(1.0+Em))*xt;
-                *y = *y + (Em/(1.0+Em))*yt;
-                *z = *z + (Em/(1.0+Em))*zt;
-            }
-/*
-
-                //printf("\nEarth-Moon:\t%17.15e %17.15e %17.15e\n", xt/AUKM, yt/AUKM, zt/AUKM);
-        //qDebug() << QString("Earth-Moon:\t%1\t%2\t%3\n").arg(xt).arg(yt).arg(zt);
-
-            xtnorm = sqrt(xt*xt + yt*yt + zt*zt);
-            rznorm = xtnorm/Em;
-
-
-            xt = -xt/xtnorm*rznorm;
-            yt = -yt/xtnorm*rznorm;
-            zt = -zt/xtnorm*rznorm;
-        //}
-
-                //printf("%17.15e %17.15e %17.15e\n", xt/AUKM, yt/AUKM, zt/AUKM);
-
-        //qDebug() << QString("Earth-Moon:\t%1\t%2\t%3\n").arg(xt).arg(yt).arg(zt);
-
-        *x += xt;
-        *y += yt;
-        *z += zt;*/
     }
 
     if(centr)
     {
             this->detR(&xt, &yt, &zt, Time, SUN_NUM, proizv, 0, 0);
-
-            //printf("sun_pos: %f %f %f\n", xt, yt, zt);
 
             *x -= xt;
             *y -= yt;
@@ -589,36 +484,16 @@ Interpolate_State( Time , nplanet , &State );
 
     if(sk)
     {
-        //Em = H2.data.constValue;
-        //double *vect = new double[3];
-
-        //H1.data.
         xt = *x;
         yt = *y;
         zt = *z;
-            /*Vt->set(0, *x);
-            Vt->set(1, *y);
-            Vt->set(2, *z);*/
-
-        //*x = xt;
         *y = cos(EKV)*yt + sin(EKV)*zt;
         *z = -sin(EKV)*yt + cos(EKV)*zt;
-/*
-            RotX(vect, -EKV);
-
-        *x = vect[0];
-        *y = vect[1];
-        *z = vect[2];
-*/
     }
-
-
-
-    //fclose(Ephemeris_File);
 
     return 0;
 }
-
+/*
 int dele::Read_Coefficients( double Time )
 {
   double  T_delta = 0.0;
@@ -631,9 +506,9 @@ int dele::Read_Coefficients( double Time )
 
   /*--------------------------------------------------------------------------*/
   /*  Read header & first coefficient array, then return status code.         */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
-    if ( Ephemeris_File == NULL ) /*........................No need to continue */
+    if ( Ephemeris_File == NULL ) /*........................No need to continue /
      {
        printf("\n Unable to open ephemeris file: %s.\n",fileName);
        return FAILURE;
@@ -643,7 +518,7 @@ int dele::Read_Coefficients( double Time )
 
     R1 = H1.data;
 
-    /*..........................................Set current time variables */
+    /*..........................................Set current time variables /
 
     T_beg  = Coeff_Array[0];
     T_end  = Coeff_Array[1];
@@ -657,15 +532,15 @@ int dele::Read_Coefficients( double Time )
   /*  Find ephemeris data that record contains input time. Note that one, and */
   /*  only one, of the following conditional statements will be true (if both */
   /*  were false, this function would not have been called).                  */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
-  if ( Time < T_beg )                    /* Compute backwards location offset */
+  if ( Time < T_beg )                    /* Compute backwards location offset /
      {
        T_delta = T_beg - Time;
        Offset  = (int) -ceil(T_delta/T_span);
      }
 
-  if ( Time > T_end )                    /* Compute forewards location offset */
+  if ( Time > T_end )                    /* Compute forewards location offset /
      {
        T_delta = Time - T_end;
        Offset  = (int) ceil(T_delta/T_span);
@@ -673,7 +548,7 @@ int dele::Read_Coefficients( double Time )
 
   /*--------------------------------------------------------------------------*/
   /*  Retrieve ephemeris data from new record.                                */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
   fseek(Ephemeris_File,(Offset-1)*ARRAY_SIZE*sizeof(double),SEEK_CUR);
   fr = fread(&Coeff_Array,sizeof(double),ARRAY_SIZE,Ephemeris_File);
@@ -688,7 +563,7 @@ int dele::Read_Coefficients( double Time )
 
   /*--------------------------------------------------------------------------*/
   /*  Debug print (optional)                                                  */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
   if ( Debug )
      {
@@ -717,7 +592,7 @@ int dele::Read_Coefficients( double Time )
 /**                                                                          **/
 /**  Returns: An integer status code.                                        **/
 /**                                                                          **/
-/**==========================================================================**/
+/**==========================================================================/
 
 int dele::Initialize_Ephemeris( char *fileName )
 {
@@ -726,21 +601,22 @@ int dele::Initialize_Ephemeris( char *fileName )
 
   /*--------------------------------------------------------------------------*/
   /*  Open ephemeris file.                                                    */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
   Ephemeris_File = fopen(fileName,"rb");
 
   /*--------------------------------------------------------------------------*/
   /*  Read header & first coefficient array, then return status code.         */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
-  if ( Ephemeris_File == NULL ) /*........................No need to continue */
+  if ( Ephemeris_File == NULL ) /*........................No need to continue /
      {
        printf("\n Unable to open ephemeris file: %s.\n",fileName);
+       qDebug() << QString("\n Unable to open ephemeris file: %1.\n").arg(fileName);
        return FAILURE;
      }
   else
-     { /*.................Read first three header records from ephemeris file */
+     { /*.................Read first three header records from ephemeris file /
 
        fr = fread(&H1,sizeof(double),ARRAY_SIZE,Ephemeris_File);
        fr = fread(&H2,sizeof(double),ARRAY_SIZE,Ephemeris_File);
@@ -748,21 +624,21 @@ int dele::Initialize_Ephemeris( char *fileName )
 
        fclose(Ephemeris_File);
 
-       /*...............................Store header data in global variables */
+       /*...............................Store header data in global variables /
 
        R1 = H1.data;
 
-       /*..........................................Set current time variables */
+       /*..........................................Set current time variables /
 
        T_beg  = Coeff_Array[0];
        T_end  = Coeff_Array[1];
        T_span = T_end - T_beg;
 
-       /*..............................Convert header ephemeris ID to integer */
+       /*..............................Convert header ephemeris ID to integer /
 
        headerID = (int) R1.DENUM;
 
-       /*..............................................Debug Print (optional) */
+       /*..............................................Debug Print (optional) /
 
        if ( Debug )
           {
@@ -774,7 +650,7 @@ int dele::Initialize_Ephemeris( char *fileName )
             printf("\n      T_Span     = %7.3f\n\n",T_span);
           }
 
-       /*..................................................Return status code */
+       /*..................................................Return status code /
 
        return SUCCESS;
        /*if ( headerID == EPHEMERIS )
@@ -786,7 +662,7 @@ int dele::Initialize_Ephemeris( char *fileName )
             printf("\n Opened wrong file: %s",fileName);
             printf(" for ephemeris: %d.\n",EPHEMERIS);
             return FAILURE;
-          }*/
+          }/
      }
 }
 
@@ -804,7 +680,7 @@ int dele::Initialize_Ephemeris( char *fileName )
 /**     Nutation -- Pointer to external array to receive the answer.         **/
 /**                                                                          **/
 /**  Returns: Nothing explicitly.                                            **/
-/**==========================================================================**/
+/**==========================================================================/
 
 void dele::Interpolate_Libration( double Time , int Target , double Libration[3] )
 {
@@ -816,9 +692,9 @@ void dele::Interpolate_Libration( double Time , int Target , double Libration[3]
         *y /= AUKM;
         *z /= AUKM;-----------------------------------------------------------------*/
   /* This function only computes librations.                                  */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
-  if ( Target != 12 )             /* Also protects against weird input errors */
+  if ( Target != 12 )             /* Also protects against weird input errors /
      {
        printf("\n This function only computes librations.\n");
        return;
@@ -826,7 +702,7 @@ void dele::Interpolate_Libration( double Time , int Target , double Libration[3]
 
   /*--------------------------------------------------------------------------*/
   /* Initialize local coefficient array.                                      */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
   for ( i=0 ; i<50 ; i++ )
       {
@@ -835,19 +711,19 @@ void dele::Interpolate_Libration( double Time , int Target , double Libration[3]
 
   /*--------------------------------------------------------------------------*/
   /* Determine if a new record needs to be input (if so, get it).             */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
   if ( Time < T_beg || Time > T_end ) Read_Coefficients(Time);
 
   /*--------------------------------------------------------------------------*/
   /* Read the coefficients from the binary record.                            */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
-  C = R1.libratPtr[0] - 1;                   /* Coefficient array entry point */
-  N = R1.libratPtr[1];                       /*        Number of coefficients */
-  G = R1.libratPtr[2];                       /*    Granules in current record */
+  C = R1.libratPtr[0] - 1;                   /* Coefficient array entry point /
+  N = R1.libratPtr[1];                       /*        Number of coefficients /
+  G = R1.libratPtr[2];                       /*    Granules in current record /
 
-  /*...................................................Debug print (optional) */
+  /*...................................................Debug print (optional) /
 
   if ( Debug )
      {
@@ -864,7 +740,7 @@ void dele::Interpolate_Libration( double Time , int Target , double Libration[3]
   /*  If not, the granule that contains the interpolation time is found, and  */
   /*  an offset from the array entry point for the libration angles is used   */
   /*  to load the coefficients.                                               */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
   if ( G == 1 )
      {
@@ -873,7 +749,7 @@ void dele::Interpolate_Libration( double Time , int Target , double Libration[3]
      }
   else if ( G > 1 )
      {
-       T_sub = T_span / ((double) G);          /* Compute subgranule interval */
+       T_sub = T_span / ((double) G);          /* Compute subgranule interval /
 
        for ( j=G ; j>0 ; j-- )
            {
@@ -891,13 +767,13 @@ void dele::Interpolate_Libration( double Time , int Target , double Libration[3]
 
        for (i=C ; i<(C+3*N) ; i++) A[i-C] = Coeff_Array[i];
      }
-  else                                   /* Something has gone terribly wrong */
+  else                                   /* Something has gone terribly wrong /
      {
        printf("\n Number of granules must be >= 1: check header data.\n");
      }
 
   /*...........................
-........................Debug print (optional) */
+........................Debug print (optional) /
 
   if ( Debug )
      {
@@ -919,15 +795,15 @@ void dele::Interpolate_Libration( double Time , int Target , double Libration[3]
 
   /*--------------------------------------------------------------------------*/
   /* Compute interpolated the libration.                                      */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
   for ( i=0 ; i<3 ; i++ )
       {
-        Cp[0]  = 1.0;                                 /* Begin polynomial sum */
+        Cp[0]  = 1.0;                                 // Begin polynomial sum
         Cp[1]  = Tc;
         sum[i] = A[i*N] + A[1+i*N]*Tc;
 
-        for ( j=2 ; j<N ; j++ )                                  /* Finish it */
+        for ( j=2 ; j<N ; j++ )                                  // Finish it
             {
               Cp[j]  = 2.0 * Tc * Cp[j-1] - Cp[j-2];
               sum[i] = sum[i] + A[j+i*N] * Cp[j];
@@ -937,7 +813,7 @@ void dele::Interpolate_Libration( double Time , int Target , double Libration[3]
 
   return;
 }
-
+*/
 
 /**==========================================================================**/
 /**  Interpolate_Nutation                                                    **/
@@ -954,7 +830,7 @@ void dele::Interpolate_Libration( double Time , int Target , double Libration[3]
 /**                                                                          **/
 /**  Returns: Nothing explicitly.                                            **/
 /**                                                                          **/
-/**==========================================================================**/
+/**==========================================================================/
 
 void dele::Interpolate_Nutation( double Time , int Target , double Nutation[2] )
 {
@@ -964,9 +840,9 @@ void dele::Interpolate_Nutation( double Time , int Target , double Nutation[2] )
 
   /*--------------------------------------------------------------------------*/
   /* This function only computes nutations.                                   */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
-  if ( Target != 11 )             /* Also protects against weird input errors */
+  if ( Target != 11 )             /* Also protects against weird input errors /
      {
        printf("\n This function only computes nutations.\n");
        return;
@@ -974,7 +850,7 @@ void dele::Interpolate_Nutation( double Time , int Target , double Nutation[2] )
 
   /*--------------------------------------------------------------------------*/
   /* Initialize local coefficient array.                                      */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
   for ( i=0 ; i<50 ; i++ )
       {
@@ -983,19 +859,19 @@ void dele::Interpolate_Nutation( double Time , int Target , double Nutation[2] )
 
   /*--------------------------------------------------------------------------*/
   /* Determine if a new record needs to be input (if so, get it).             */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
   if (Time < T_beg || Time > T_end)  Read_Coefficients(Time);
 
   /*--------------------------------------------------------------------------*/
   /* Read the coefficients from the binary record.                            */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
-  C = R1.coeffPtr[Target][0] - 1;            /* Coefficient array entry point */
-  N = R1.coeffPtr[Target][1];                /*        Number of coefficients */
-  G = R1.coeffPtr[Target][2];                /*    Granules in current record */
+  C = R1.coeffPtr[Target][0] - 1;            // Coefficient array entry point
+  N = R1.coeffPtr[Target][1];                //        Number of coefficients
+  G = R1.coeffPtr[Target][2];                //    Granules in current record
 
-  /*...................................................Debug print (optional) */
+  /*...................................................Debug print (optional) /
 
   if ( Debug )
      {
@@ -1012,7 +888,7 @@ void dele::Interpolate_Nutation( double Time , int Target , double Nutation[2] )
   /*  If not, the granule that contains the interpolation time is found, and  */
   /*  an offset from the array entry point for the nutation angles is used    */
   /*  to load the coefficients.                                               */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
   if ( G == 1 )
      {
@@ -1021,7 +897,7 @@ void dele::Interpolate_Nutation( double Time , int Target , double Nutation[2] )
      }
   else if ( G > 1 )
      {
-       T_sub = T_span / ((double) G);          /* Compute subgranule interval */
+       T_sub = T_span / ((double) G);          /* Compute subgranule interval /
 
        for ( j=G ; j>0 ; j-- )
            {
@@ -1039,12 +915,12 @@ void dele::Interpolate_Nutation( double Time , int Target , double Nutation[2] )
 
        for (i=C ; i<(C+3*N) ; i++) A[i-C] = Coeff_Array[i];
      }
-  else                                   /* Something has gone terribly wrong */
+  else                                   /* Something has gone terribly wrong /
      {
        printf("\n Number of granules must be >= 1: check header data.\n");
      }
 
-  /*...................................................Debug print (optional) */
+  /*...................................................Debug print (optional) /
 
   if ( Debug )
      {
@@ -1066,15 +942,15 @@ void dele::Interpolate_Nutation( double Time , int Target , double Nutation[2] )
 
   /*--------------------------------------------------------------------------*/
   /* Compute interpolated the nutation.                                       */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
   for ( i=0 ; i<2 ; i++ )
       {
-        Cp[0]  = 1.0;                                 /* Begin polynomial sum */
+        Cp[0]  = 1.0;                                 // Begin polynomial sum
         Cp[1]  = Tc;
         sum[i] = A[i*N] + A[1+i*N]*Tc;
 
-        for ( j=2 ; j<N ; j++ )                                  /* Finish it */
+        for ( j=2 ; j<N ; j++ )                                  // Finish it
             {
               Cp[j]  = 2.0 * Tc * Cp[j-1] - Cp[j-2];
               sum[i] = sum[i] + A[j+i*N] * Cp[j];
@@ -1100,7 +976,7 @@ void dele::Interpolate_Nutation( double Time , int Target , double Nutation[2] )
 /**                                                                          **/
 /**  Returns: Nothing explicitly.                                            **/
 /**                                                                          **/
-/**==========================================================================**/
+/**==========================================================================/
 
 int dele::Interpolate_Position( double Time , int Target , double Position[3] )
 {
@@ -1110,9 +986,9 @@ int dele::Interpolate_Position( double Time , int Target , double Position[3] )
 
   /*--------------------------------------------------------------------------*/
   /* This function doesn't "do" nutations or librations.                      */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
-  if ( Target >= 11 )             /* Also protects against weird input errors */
+  if ( Target >= 11 )             // Also protects against weird input errors
      {
        printf("\n This function does not compute nutations or librations.\n");
        return 1;
@@ -1120,7 +996,7 @@ int dele::Interpolate_Position( double Time , int Target , double Position[3] )
 
   /*--------------------------------------------------------------------------*/
   /* Initialize local coefficient array.                                      */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
   for ( i=0 ; i<50 ; i++ )
       {
@@ -1129,19 +1005,19 @@ int dele::Interpolate_Position( double Time , int Target , double Position[3] )
 
   /*--------------------------------------------------------------------------*/
   /* Determine if a new record needs to be input (if so, get it).             */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
   if (Time < T_beg || Time > T_end)  if(Read_Coefficients(Time)) return 1;
 
   /*--------------------------------------------------------------------------*/
   /* Read the coefficients from the binary record.                            */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
-  C = R1.coeffPtr[Target][0] - 1;          /*   Coefficient array entry point */
-  N = R1.coeffPtr[Target][1];              /* Number of coeff's per component */
-  G = R1.coeffPtr[Target][2];              /*      Granules in current record */
+  C = R1.coeffPtr[Target][0] - 1;          //   Coefficient array entry point
+  N = R1.coeffPtr[Target][1];              // Number of coeff's per component
+  G = R1.coeffPtr[Target][2];              //      Granules in current record
 
-  /*...................................................Debug print (optional) */
+  /*...................................................Debug print (optional)
 
   if ( Debug )
      {
@@ -1158,7 +1034,7 @@ int dele::Interpolate_Position( double Time , int Target , double Position[3] )
   /*  If not, the granule that contains the interpolation time is found, and  */
   /*  an offset from the array entry point for the ephemeris body is used to  */
   /*  load the coefficients.                                                  */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
   if ( G == 1 )
      {
@@ -1167,7 +1043,7 @@ int dele::Interpolate_Position( double Time , int Target , double Position[3] )
      }
   else if ( G > 1 )
      {
-       T_sub = T_span / ((double) G);          /* Compute subgranule interval */
+       T_sub = T_span / ((double) G);          /* Compute subgranule interval
 
        for ( j=G ; j>0 ; j-- )
            {
@@ -1185,12 +1061,12 @@ int dele::Interpolate_Position( double Time , int Target , double Position[3] )
 
        for (i=C ; i<(C+3*N) ; i++) A[i-C] = Coeff_Array[i];
      }
-  else                                   /* Something has gone terribly wrong */
+  else                                   /* Something has gone terribly wrong
      {
        printf("\n Number of granules must be >= 1: check header data.\n");
      }
 
-  /*...................................................Debug print (optional) */
+  /*...................................................Debug print (optional)
 
   if ( Debug )
      {
@@ -1212,15 +1088,15 @@ int dele::Interpolate_Position( double Time , int Target , double Position[3] )
 
   /*--------------------------------------------------------------------------*/
   /* Compute interpolated the position.                                       */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
   for ( i=0 ; i<3 ; i++ )
       {
-        Cp[0]  = 1.0;                                 /* Begin polynomial sum */
+        Cp[0]  = 1.0;                                 /* Begin polynomial sum
         Cp[1]  = Tc;
         sum[i] = A[i*N] + A[1+i*N]*Tc;
 
-        for ( j=2 ; j<N ; j++ )                                  /* Finish it */
+        for ( j=2 ; j<N ; j++ )                                  // Finish it
             {
               Cp[j]  = 2.0 * Tc * Cp[j-1] - Cp[j-2];
               sum[i] = sum[i] + A[j+i*N] * Cp[j];
@@ -1245,7 +1121,7 @@ int dele::Interpolate_Position( double Time , int Target , double Position[3] )
 /**     Position -- Pointer to external array to receive the position.       **/
 /**                                                                          **/
 /**  Returns: Nothing (explicitly)                                           **/
-/**==========================================================================**/
+/**==========================================================================/
 
 int dele::Interpolate_State(double Time , int Target, stateType *Planet)
 {
@@ -1257,9 +1133,9 @@ int dele::Interpolate_State(double Time , int Target, stateType *Planet)
 
   /*--------------------------------------------------------------------------*/
   /* This function doesn't "do" nutations or librations.                      */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
-  if ( Target >= 11 )             /* Also protects against weird input errors */
+  if ( Target >= 11 )             // Also protects against weird input errors
      {
        printf("\n This function does not compute nutations or librations.\n");
        return 1;
@@ -1267,7 +1143,7 @@ int dele::Interpolate_State(double Time , int Target, stateType *Planet)
 
   /*--------------------------------------------------------------------------*/
   /* Initialize local coefficient array.                                      */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
   for ( i=0 ; i<50 ; i++ )
       {
@@ -1277,19 +1153,19 @@ int dele::Interpolate_State(double Time , int Target, stateType *Planet)
 
   /*--------------------------------------------------------------------------*/
   /* Determine if a new record needs to be input.                             */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
   if (Time < T_beg || Time > T_end)  if(Read_Coefficients(Time)) return 1;
 
   /*--------------------------------------------------------------------------*/
   /* Read the coefficients from the binary record.                            */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
-  C = R1.coeffPtr[Target][0] - 1;               /*    Coeff array entry point */
-  N = R1.coeffPtr[Target][1];                   /*          Number of coeff's */
-  G = R1.coeffPtr[Target][2];                   /* Granules in current record */
+  C = R1.coeffPtr[Target][0] - 1;               //    Coeff array entry point
+  N = R1.coeffPtr[Target][1];                   //          Number of coeff's
+  G = R1.coeffPtr[Target][2];                   // Granules in current record
 
-  /*...................................................Debug print (optional) */
+  /*...................................................Debug print (optional) /
 
   if ( Debug )
      {
@@ -1306,7 +1182,7 @@ int dele::Interpolate_State(double Time , int Target, stateType *Planet)
   /*  If not, the granule that contains the interpolation time is found, and  */
   /*  an offset from the array entry point for the ephemeris body is used to  */
   /*  load the coefficients.                                                  */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
   if ( G == 1 )
      {
@@ -1315,7 +1191,7 @@ int dele::Interpolate_State(double Time , int Target, stateType *Planet)
      }
   else if ( G > 1 )
      {
-       T_sub = T_span / ((double) G);          /* Compute subgranule interval */
+       T_sub = T_span / ((double) G);          /* Compute subgranule interval /
 
        for ( j=G ; j>0 ; j-- )
            {
@@ -1333,12 +1209,12 @@ int dele::Interpolate_State(double Time , int Target, stateType *Planet)
 
        for (i=C ; i<(C+3*N) ; i++) A[i-C] = Coeff_Array[i];
      }
-  else                                   /* Something has gone terribly wrong */
+  else                                   /* Something has gone terribly wrong /
      {
        printf("\n Number of granules must be >= 1: check header data.\n");
      }
 
-  /*...................................................Debug print (optional) */
+  /*...................................................Debug print (optional) /
 
   if ( Debug )
      {
@@ -1360,10 +1236,10 @@ int dele::Interpolate_State(double Time , int Target, stateType *Planet)
 
   /*--------------------------------------------------------------------------*/
   /* Compute the interpolated position & velocity                             */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
 
-  for ( i=0 ; i<3 ; i++ )                /* Compute interpolating polynomials */
-      {
+  for ( i=0 ; i<3 ; i++ )                // Compute interpolating polynomials
+
         Cp[0] = 1.0;
         Cp[1] = Tc;
         Cp[2] = 2.0 * Tc*Tc - 1.0;
@@ -1378,7 +1254,7 @@ int dele::Interpolate_State(double Time , int Target, stateType *Planet)
               Up[j] = 2.0 * Tc * Up[j-1] + 2.0 * Cp[j-1] - Up[j-2];
             }
 
-        P_Sum[i] = 0.0;           /* Compute interpolated position & velocity */
+        P_Sum[i] = 0.0;           // Compute interpolated position & velocity
         V_Sum[i] = 0.0;
 
         for ( j=N-1 ; j>-1 ; j-- )  P_Sum[i] = P_Sum[i] + A[j+i*N] * Cp[j];
@@ -1388,9 +1264,9 @@ int dele::Interpolate_State(double Time , int Target, stateType *Planet)
         X.Velocity[i] = V_Sum[i] * 2.0 * ((double) G) / (T_span * 86400.0);
       }
 
-  /*--------------------------------------------------------------------------*/
-  /*  Return computed values.                                                 */
-  /*--------------------------------------------------------------------------*/
+  /*--------------------------------------------------------------------------/
+  /*  Return computed values.                                                 /
+  /*--------------------------------------------------------------------------/
 
   *Planet = X;
 

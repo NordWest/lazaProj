@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2014-01-14T12:56:07
+# Project created by QtCreator 2014-01-15T11:01:22
 #
 #-------------------------------------------------
 
@@ -11,23 +11,22 @@ TEMPLATE = lib
 
 DEFINES += DELE_LIBRARY
 
-SOURCES += dele.cpp \
-        ephem_util.cpp
+VERSION = 1.0.0
 
+SOURCES += dele.cpp
 HEADERS += dele.h\
-        dele_global.h \
-        ephem_types.h \
-        ephem_util.h
+        dele_global.h
+
+LIBS += -lephem_read
 
 unix:!symbian {
     maemo5 {
         target.path = /opt/usr/lib
     } else {
-        target.path = /usr/lib
+        target.path = /usr/local/lib
         header.path=/usr/local/include
-        header.files= dele.h ephem_types.h ephem_util.h
     }
-
-    INSTALLS+=header
+    header.files=dele.h
     INSTALLS += target
+    INSTALLS+=header
 }
