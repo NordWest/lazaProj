@@ -47,32 +47,11 @@
 
 int planet_num(char *pname);
 double det_planet_H(int pl_num);
-/*
-int body_num(QString pname)
-{
-    if(QString().compare(pname, "Mercury")==0) return 1;
-    if(QString().compare(pname, "Venus")==0) return 2;
-    if(QString().compare(pname, "Earth")==0) return 3;
-    if(QString().compare(pname, "Mars")==0) return 4;
-    if(QString().compare(pname, "Jupiter")==0) return 5;
-    if(QString().compare(pname, "Saturn")==0) return 6;
-    if(QString().compare(pname, "Uranus")==0) return 7;
-    if(QString().compare(pname, "Neptune")==0) return 8;
-    if(QString().compare(pname, "Pluto")==0) return 9;
-    if(QString().compare(pname, "Sun")==0) return 10;
 
-    return -1;
-}
-*/
 class dele
 {
 public:
-/*    headOneType  H1;
-    headTwoType  H2;
-    recOneType   R1;
-    FILE *Ephemeris_File;
-    double Coeff_Array[ARRAY_SIZE] , T_beg , T_end , T_span;
-*/
+
     char *fileName;
 
 	dele();
@@ -96,40 +75,6 @@ public:
 	*/
 
 private:
-/*
-        int Read_Coefficients( double Time );
-
-        /*----------------------------------------------------------------------------*/
-        /*  Initialize_Ephemeris                                                      */
-        /*----------------------------------------------------------------------------/
-
-            int Initialize_Ephemeris( char *fileName );
-
-        /*----------------------------------------------------------------------------*/
-        /*  Interpolate_Libration                                                     */
-        /*----------------------------------------------------------------------------/
-
-            void Interpolate_Libration( double Time, int Target, double Libration[3] );
-
-        /*----------------------------------------------------------------------------*/
-        /*  Interpolate_Nutation                                                      */
-        /*----------------------------------------------------------------------------/
-
-            void Interpolate_Nutation( double Time , int Target , double Nutation[2] );
-
-        /*----------------------------------------------------------------------------*/
-        /*  Interpolate_Position                                                      */
-        /*----------------------------------------------------------------------------/
-
-            int Interpolate_Position( double Time , int Target , double Position[3] );
-
-        /*----------------------------------------------------------------------------*/
-        /*  Interpolate_State                                                         */
-        /*----------------------------------------------------------------------------/
-
-            int Interpolate_State( double Time , int Target , stateType *Planet );
-
-*/
 
 };
 
