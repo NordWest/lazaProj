@@ -14,7 +14,7 @@ DEFINES += DELE_LIBRARY
 VERSION = 1.0.0
 
 SOURCES += dele.cpp
-HEADERS += dele.h\
+HEADERS += dele.h \
         dele_global.h
 
 LIBS += -lephem_read

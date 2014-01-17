@@ -1,6 +1,28 @@
 //#include "stdafx.h"
 #include "dele.h"
 
+int planet_num(char *pname)
+{
+    if(strstr(pname, "Mercury")) return MERCURY_NUM;
+    if(strstr(pname, "Venus")) return VENUS_NUM;
+    if(strstr(pname, "Earth")) return GEOCENTR_NUM;
+    if(strstr(pname, "EMB")) return EARTH_NUM;
+    if(strstr(pname, "Mars")) return MARS_NUM;
+    if(strstr(pname, "Jupiter")) return JUPITER_NUM;
+    if(strstr(pname, "Saturn")) return SATURN_NUM;
+    if(strstr(pname, "Uranus")) return URANUS_NUM;
+    if(strstr(pname, "Neptune")) return NEPTUNE_NUM;
+    if(strstr(pname, "Pluto")) return PLUTO_NUM;
+    if(strstr(pname, "Moon")) return MOON_NUM;
+    if(strstr(pname, "Sun")) return SUN_NUM;
+    if(strstr(pname, "Sol")) return SUN_NUM;
+    if(strstr(pname, "Nutations")) return NUTATIONS_NUM;
+    if(strstr(pname, "Librations")) return LIBRATIONS_NUM;
+    if(strstr(pname, "Geocentr")) return GEOCENTR_NUM;
+
+    return -1;
+}
+
 double det_planet_H(int pl_num)
 {
 	switch(pl_num)
