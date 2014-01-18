@@ -5,7 +5,10 @@
 #ifndef EPHEM_UTIL
 #include <ephem_util.h>
 #endif
+
+#ifndef EPHEM_READ
 #include <ephem_read.h>
+#endif
 
 #include <QString>
 #include <QList>
@@ -49,6 +52,10 @@ double det_planet_H(int pl_num);
 class dele
 {
 public:
+
+    headOneType  H1;
+    headTwoType  H2;
+    recOneType   R1;
 
     char *fileName;
 

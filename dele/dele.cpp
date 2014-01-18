@@ -89,7 +89,9 @@ int dele::init(const char *jpl_name)
 {
         strcpy(this->fileName, jpl_name);
 
-        return(Initialize_Ephemeris(fileName));
+        int res = Initialize_Ephemeris(fileName);
+
+        GetParams(H1, H2, R1);
 
         return 0;
 }
@@ -98,28 +100,6 @@ int dele::detR(double *x, double *y, double *z, double Time, char *planet, int p
 {
 	int nplanet = planet_num(planet);
 	if(nplanet<0) return 1;
-/*
-        double *Position = new double[3];
-
-        Initialize_Ephemeris(fname_bin);
-
-        stateData State;
-
-        if(proizv)
-        {
-            Interpolate_State( Time , nplanet , &State );
-            *x = State.Position[0];
-            *y = State.Position[1];
-            *z = State.Position[2];
-        }
-        else
-        {
-            Interpolate_Position( Time , nplanet , Position );
-            *x = Position[0];
-            *y = Position[1];
-            *z = Position[2];
-        }
-  */
 
 	return(detR(x, y, z, Time, nplanet, proizv, centr, sk));
 }
@@ -129,11 +109,7 @@ int dele::detRtt(double *x, double *y, double *z, double Time, int nplanet, int 
     //Initialize_Ephemeris(fileName);
     //List4 *cs;
     QList <double*> cs;
-    //cs = new List4(7);
     double *xk, *xk1;
-//	xk = new double[11][6];
-        //rec1040 *rc;
-        //rc = new rec1040;
 	int npl;
 
 	int i;
@@ -241,7 +217,7 @@ int dele::detState(double *x, double *y, double *z, double *vx, double *vy, doub
     double Em;
     int npl = 0;
     stateData State;
-    //if(nplanet==SUN_NUM) centr = !centr;
+
     if((nplanet==GEOCENTR_NUM))
     {
         npl = 1;

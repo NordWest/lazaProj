@@ -3,7 +3,7 @@
 
 #ifndef ASTRO_H
 
-#define PI atan(1)*4
+#define PI 3.141592653589793238462
 #define SECINRAD 206264.806
 #define MAS_IN_GRAD 3600000.0
 #define AU_CONST 1
