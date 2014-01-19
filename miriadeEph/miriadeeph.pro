@@ -2,7 +2,6 @@ TEMPLATE = app
 SOURCES += main.cpp \
     miriadeeph.cpp
 HEADERS += miriadeeph.h
-HEADERS += ./../libs/astro.h
 
 TARGET = ~/bin/miriadeEph
 QT += network
