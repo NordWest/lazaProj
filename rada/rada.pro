@@ -28,3 +28,6 @@ unix:!symbian {
     header.files=rada.h
     INSTALLS += target header
 }
+
+LIBS += -lgomp
+QMAKE_CXXFLAGS+=-fopenmp
