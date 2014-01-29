@@ -53,9 +53,8 @@ void force_GN(double X[], double V[], double F[])
 {
   int iNum = nofzbody;
   int Ni = iNum*3;
-#ifdef OMPLIB
+
   #pragma omp parallel for
-#endif
   for(int teloi=0; teloi<iNum; teloi++)
   {
       int i=teloi*3;
