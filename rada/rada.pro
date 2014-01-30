@@ -9,6 +9,9 @@ QT       -= gui
 TARGET = rada
 TEMPLATE = lib
 
+LIBS += -lgomp
+QMAKE_CXXFLAGS+=-fopenmp
+
 DEFINES += RADA_LIBRARY
 
 SOURCES += rada.cpp \

@@ -5,6 +5,8 @@
 #include <dele.h>
 #include <omp.h>
 
+#define OMPLIB
+
 #define ka 0.017202098955
 
   extern double a, CC, omega, Ltilde, A;
