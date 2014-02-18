@@ -70,6 +70,7 @@ void force_GN(double X[], double V[], double F[])
       }
 
       double massI = mass[teloi];//0.0;
+      if(massI<0)massI=0;
       for(int komp=0; komp<3; komp++)
       {
           double res0, res1;
