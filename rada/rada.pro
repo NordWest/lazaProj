@@ -32,5 +32,5 @@ unix:!symbian {
     INSTALLS += target header
 }
 
-LIBS += -lgomp
+LIBS += -lgomp -ldele -lephem_read
 QMAKE_CXXFLAGS+=-fopenmp
