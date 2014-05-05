@@ -19,10 +19,8 @@
 
   extern int nofzbody;
   extern double *mass;
-  extern dele eph;
-  extern double *massF;
-  extern int *fbodynum;
-  extern int nfbody;
+  //extern dele eph;
+  //extern QList <nbobjStruct*> pls;
 
 double dist3(double X0[], double X1[])
 {
@@ -43,18 +41,17 @@ double norm3(double *v)
     return(sqrt(nm));
 }
 
-
 void force_N(double X[], double V[], double F[]);
 int force_PPN(double X[], double V[], double F[]);
 void force_GN(double X[], double V[], double F[]);
-void force_GN_dele(double X[], double V[], double TS, double F[]);
-
+//void force_GN_dele(double X[], double V[], double TS, double F[]);
 
 void Everhardt::force(double X[], double V[], double TS, double F[])
 {
     iterNum = 0;
 
-    force_GN_dele(X, V, TS, F);
+    force_GN(X, V, F);
+    //force_GN_dele(X, V, TS, F);
 }
 //GELIOCENTR
 void force_GN(double X[], double V[], double F[])
@@ -115,18 +112,18 @@ void force_GN(double X[], double V[], double F[])
           }
   }
 }
-
+/*
 void force_GN_dele(double X[], double V[], double TS, double F[])
 {
   int iNum = nofzbody;
   int Ni = iNum*3;
-  int fNum = nfbody;
+  int fNum = pls.size();
   int Nf = fNum*3;
   double *XF = new double[Nf];
 
   for(int i=0; i<fNum; i++)
   {
-      eph.detR(&XF[i*3], &XF[i*3+1], &XF[i*3+2], TS, fbodynum[i], 0, CENTER, SK);
+      eph.detR(&XF[i*3], &XF[i*3+1], &XF[i*3+2], TS, pls[i]->planet_num, 0, CENTER, SK);
   }
 
   #pragma omp parallel for
@@ -177,7 +174,7 @@ void force_GN_dele(double X[], double V[], double TS, double F[])
               for(int telof=0; telof<fNum; telof++)
               {
                  int fn=telof*3;
-                 if(massF[telof]>0)
+                 if(pls[telof]->mass>0)
                  {
                     double Rij = dist3(&X[i], &XF[fn]);
                     double Rj = norm3(&XF[fn]);
@@ -193,7 +190,7 @@ void force_GN_dele(double X[], double V[], double TS, double F[])
 
 
 
-                    res0 += massF[telof]*((XF[fn+komp] - X[i+komp])/(pow(Rij,3)) - XF[fn+komp]/(pow(Rj, 3)));
+                    res0 += pls[telof]->mass*((XF[fn+komp] - X[i+komp])/(pow(Rij,3)) - XF[fn+komp]/(pow(Rj, 3)));
 
                  }
 
@@ -207,7 +204,7 @@ void force_GN_dele(double X[], double V[], double TS, double F[])
           }
   }
 }
-
+*/
 
 
 /*==============================================================*/

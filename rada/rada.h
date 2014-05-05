@@ -5,6 +5,12 @@ struct ever_params
     char jkeys[10];
 };
 
+struct nbobjStruct
+{
+    double mass;
+    int planet_num;
+};
+
 class Everhardt
 {
  public:
