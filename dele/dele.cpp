@@ -93,7 +93,7 @@ int dele::init(const char *jpl_name)
 
         GetParams(H1, H2, R1);
 
-        return 0;
+        return res;
 }
 
 int dele::detR(double *x, double *y, double *z, double Time, char *planet, int proizv, int centr, int sk)

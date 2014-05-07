@@ -18,7 +18,8 @@
 #ifndef DELE_H
 
 //#define EKV 0.409092804
-#define EKV 0.409092628
+//#define EKV 0.409092628
+#define EKV 0.409092601
 #define FNLEN 255
 
 #define DE405_CAT 192

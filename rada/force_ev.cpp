@@ -74,7 +74,7 @@ void force_GN(double X[], double V[], double F[])
   int iNum = nofzbody;
   int Ni = iNum*3;
 
-  printf("nofzbody: %d\n", nofzbody);
+  //printf("nofzbody: %d\n", nofzbody);
 
   #pragma omp parallel for
   for(int teloi=0; teloi<iNum; teloi++)
@@ -90,7 +90,7 @@ void force_GN(double X[], double V[], double F[])
       }
 
       double massI = mass[teloi];//0.0;
-      printf("massI: %e\n", massI);
+      //printf("massI: %e\n", massI);
       if(massI<0)massI=0;
       for(int komp=0; komp<3; komp++)
       {
