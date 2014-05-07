@@ -3,6 +3,7 @@ struct ever_params
     int NV, NCLASS, NOR, NI, LL;
     double XL, col, vout;
     char jkeys[10];
+    int ppn;
 };
 
 struct nbobjStruct
