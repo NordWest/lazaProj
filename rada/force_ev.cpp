@@ -100,7 +100,8 @@ void force_GN(double X[], double V[], double F[])
               for(int teloj=0; teloj<iNum; teloj++)
               {
                  int j=teloj*3;
-                 if(teloi!=teloj&&mass[teloj]>0)
+                 double massJ = mass[teloj];
+                 if(teloi!=teloj&&massJ>0)
                  {
                     double Rij = dist3(&X[i], &X[j]);
                     double Rj = norm3(&X[j]);
@@ -116,7 +117,7 @@ void force_GN(double X[], double V[], double F[])
 
 
 
-                    res0 += mass[teloj]*((X[j+komp] - X[i+komp])/(pow(Rij,3)) - X[j+komp]/(pow(Rj, 3)));
+                    res0 += massJ*((X[j+komp] - X[i+komp])/(pow(Rij,3)) - X[j+komp]/(pow(Rj, 3)));
 
                  }
 
