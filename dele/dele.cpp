@@ -210,6 +210,12 @@ double dele::headParam(QString name)
     return res;
 }
 
+int dele::detState(double *state, double Time, int nplanet, int centr, int sk)
+{
+    return(detState(&state[0], &state[1], &state[2], &state[3], &state[4], &state[5], Time, nplanet, centr, sk));
+}
+
+
 int dele::detState(double *x, double *y, double *z, double *vx, double *vy, double *vz, double Time, int nplanet, int centr, int sk)
 {
     double xt, yt, zt;

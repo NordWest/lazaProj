@@ -17,9 +17,10 @@
 
 #ifndef DELE_H
 
-//#define EKV 0.409092804
+#define EKV 0.409092804
 //#define EKV 0.409092628
-#define EKV 0.409092629
+//#define EKV 0.409092601
+
 #define FNLEN 255
 
 #define DE405_CAT 192
@@ -71,6 +72,7 @@ public:
 	int detR(double *x, double *y, double *z, double Time, char *planet, int proizv, int centr, int sk);
 	int detRtt(double *x, double *y, double *z, double Time, int nplanet, int centr, int sk);
     int detState(double *x, double *y, double *z, double *vx, double *vy, double *vz, double Time, int nplanet, int centr, int sk);
+    int detState(double *state, double Time, int nplanet, int centr, int sk);
 
     int headParam(QString name, double &res);
     double headParam(QString name);
