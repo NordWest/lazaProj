@@ -5,7 +5,7 @@
 #include <dele.h>
 #include <omp.h>
 
-#define OMPLIB
+//#define OMPLIB
 
 #define ka 0.017202098955
 #define CAU 173.144632685
@@ -76,7 +76,7 @@ void force_GN(double X[], double V[], double F[])
 
   //printf("nofzbody: %d\n", nofzbody);
 
-  #pragma omp parallel for
+#pragma omp parallel for
   for(int teloi=0; teloi<iNum; teloi++)
   {
       int i=teloi*3;
@@ -110,6 +110,8 @@ void force_GN(double X[], double V[], double F[])
                     {
 
                         printf("teloi= %d\tteloj= %d\n", teloi, teloj);
+                        printf("Xi: %f\t%f\t%f\n", X[i], X[i+1], X[i+2]);
+                        printf("Xj: %f\t%f\t%f\n", X[j], X[j+1], X[j+2]);
                         printf("Rij= %f\n", Rij);
                         printf("WARN!!!! CRASH!!!!\n");
                         exit(1);
