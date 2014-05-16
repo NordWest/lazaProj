@@ -3,22 +3,22 @@
 
 int planet_num(char *pname)
 {
-    if(strstr(pname, "Mercury")) return MERCURY_NUM;
-    if(strstr(pname, "Venus")) return VENUS_NUM;
-    if(strstr(pname, "Earth")) return GEOCENTR_NUM;
-    if(strstr(pname, "EMB")) return EARTH_NUM;
-    if(strstr(pname, "Mars")) return MARS_NUM;
-    if(strstr(pname, "Jupiter")) return JUPITER_NUM;
-    if(strstr(pname, "Saturn")) return SATURN_NUM;
-    if(strstr(pname, "Uranus")) return URANUS_NUM;
-    if(strstr(pname, "Neptune")) return NEPTUNE_NUM;
-    if(strstr(pname, "Pluto")) return PLUTO_NUM;
-    if(strstr(pname, "Moon")) return MOON_NUM;
-    if(strstr(pname, "Sun")) return SUN_NUM;
-    if(strstr(pname, "Sol")) return SUN_NUM;
-    if(strstr(pname, "Nutations")) return NUTATIONS_NUM;
-    if(strstr(pname, "Librations")) return LIBRATIONS_NUM;
-    if(strstr(pname, "Geocentr")) return GEOCENTR_NUM;
+    if(strcmp(pname, "Mercury")==0) return MERCURY_NUM;
+    if(strcmp(pname, "Venus")==0) return VENUS_NUM;
+    if(strcmp(pname, "Earth")==0) return GEOCENTR_NUM;
+    if(strcmp(pname, "EMB")==0) return EARTH_NUM;
+    if(strcmp(pname, "Mars")==0) return MARS_NUM;
+    if(strcmp(pname, "Jupiter")==0) return JUPITER_NUM;
+    if(strcmp(pname, "Saturn")==0) return SATURN_NUM;
+    if(strcmp(pname, "Uranus")==0) return URANUS_NUM;
+    if(strcmp(pname, "Neptune")==0) return NEPTUNE_NUM;
+    if(strcmp(pname, "Pluto")==0) return PLUTO_NUM;
+    if(strcmp(pname, "Moon")==0) return MOON_NUM;
+    if(strcmp(pname, "Sun")==0) return SUN_NUM;
+    if(strcmp(pname, "Sol")==0) return SUN_NUM;
+    if(strcmp(pname, "Nutations")==0) return NUTATIONS_NUM;
+    if(strcmp(pname, "Librations")==0) return LIBRATIONS_NUM;
+    if(strcmp(pname, "Geocentr")==0) return GEOCENTR_NUM;
 
     return -1;
 }
